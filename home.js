@@ -18,7 +18,8 @@ let maxHistoryItemCall = DebugLevel?3:15;
 
 let currentGameTimer = null;
 
-$(document).ready(function(){
+
+$( document ).ready(function() {
     $.ajax({
         url: "credentials.json",
         type: 'GET',
@@ -120,6 +121,15 @@ $(document).ready(function(){
             getSummonerInfo("name", searcherInput.val());
         }
     });
+	
+	$("#btn0").button().on("click", function(event) {
+		console.log(puuid);
+		getSummonerInfo("puuid",puuid);
+	});
+	
+	$("#btn1").button().on("click", function(event) {        
+		getSummonerInfo("name", searcherInput.val());
+	});
 
     let totalItemWrapper = $('#game_history_item_wrapper');
     let innerItem = $('#game_history_item');
@@ -260,6 +270,10 @@ $(document).ready(function(){
 function getSummonerInfo(method, data){
     whenFindNewSummoner();
     let AfterURL = "https://kr.api.riotgames.com/lol/summoner/v4/summoners/";
+	if(data=="") {
+		alert("소환사를 입력해주세요.");
+		location.href(-1);
+	}
     switch(method){
         case "name":
             AfterURL += "by-name/"+data;
@@ -280,16 +294,17 @@ function getSummonerInfo(method, data){
         },
         success: function(res){
             //Point
+			puuid=res.puuid;
             loadSummonerGeneralInfo(res);
-            getSummonerLeagueInfoBySummonerID(res.id)
+            getSummonerLeagueInfoBySummonerID(res.id);
             getSummonerRecentGameHistoryBySummonerPuuid(res);
             getCurrentMatchBySummonerID(res.id);
             getSummonerMasteryInfoBySummonerID(res.id);
         },
         error: function(req, stat, err){
             console.log(err);
-            if(err == "Not Found") alert("존재하지 않는 소환사");
-            else if(err == "Forbidden") alert("API_KEY 만료됨");
+            if(err == "Forbidden") alert("API_KEY 만료됨");
+            else alert("존재하지 않는 소환사입니다.");
         },
     });
 }
