@@ -1429,6 +1429,17 @@ body{
 }
 
 @media screen and (max-width: 400px) {
+	.participant-item-wrapper {
+		width:75px;
+	}
+	.participant-champion-img {
+		width:35px;
+		height:35px;
+	}
+	.participant-item {
+		width:15px;
+		height:15px;
+	}
 	.spell-wrapper{
 		width:16px;
 	}
