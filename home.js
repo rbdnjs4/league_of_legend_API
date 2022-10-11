@@ -474,7 +474,7 @@ function loadCurremtMatchInfo(info){
 
         let perk1ImageURL = "https://ddragon.leagueoflegends.com/cdn/img/"+perk1_info.icon;
         let perk2ImageURL = "https://ddragon.leagueoflegends.com/cdn/img/"+perk2_info.icon;
-
+		
         currentPlayerChampionImgDiv.css("background-image", `url(${champion_img_url})`);
         currentPlayerRune1Div.css("background-image", `url(${spell1_url_def})`);
         currentPlayerRune2Div.css("background-image", `url(${spell2_url_def})`);
@@ -776,13 +776,14 @@ function loadSummonerMatchHistory(userInfo, info){
                         </div>
                     </div>
                     `;
-
+					
                     if(participantTeam == 100){
                         team1infoBundle.push(historyItemDescriptionSegment);
                     }else{
                         team2infoBundle.push(historyItemDescriptionSegment);
                     }
                 }
+				
 
                 nativeHistoryItemBundle[i] = {
                     segment: historyHTMLdocSegment,
@@ -878,6 +879,8 @@ function loadSummonerMatchHistory(userInfo, info){
             for(let j=0;j<curTeam2Info.length;j++){
                 team2Container.append(curTeam2Info[j]);
             }
+			let maxDealtView = $(`#deal_damage_bar_0_0 .max-dealt-bar`);
+			console.log(maxDealtView.width());
 
             //팀 유저 정보
             let maxDealtFromTeam = -1;
@@ -945,29 +948,31 @@ function loadSummonerMatchHistory(userInfo, info){
                 let participantPhysicalDealtView = $(`#deal_damage_bar_${i}_${j} .physical-dealt-bar`);
                 let participantMagicalDealtView = $(`#deal_damage_bar_${i}_${j} .magical-dealt-bar`);
                 let participantTrueDealtView = $(`#deal_damage_bar_${i}_${j} .true-dealt-bar`);
-                let maxDealtView = $(`#deal_damage_bar_${i}_${j}`);
-                let maxDealtViewWidth = maxDealtView.width();
+				let maxDealtView = $(`#deal_damage_bar_${i}_${j} .max-dealt-bar`);
+				let maxDealtViewWidth = 302;
+				console.log(maxDealtViewWidth);
 
                 let physicalDealt = participantStat.physicalDamageDealtToChampions;
                 let magicalDealt = participantStat.magicDamageDealtToChampions;
                 let trueDealt = participantStat.trueDamageDealtToChampions;
                 let totalDealt = participantStat.totalDamageDealtToChampions;
-
+					
                 let physicalDealtRate = physicalDealt/maxDealtFromTeam;
                 let magicalDealtRate = magicalDealt/maxDealtFromTeam;
                 let trueDealtRate = trueDealt/maxDealtFromTeam;
-
+				
                 let physicalDealtWidth = physicalDealtRate * maxDealtViewWidth;
                 let magicalDealtWidth = magicalDealtRate * maxDealtViewWidth;
                 let trueDealtWidth = trueDealtRate * maxDealtViewWidth;
                 
+				
                 // let maxTrueDealtWidth = maxDealtViewWidth - physicalDealtWidth - magicalDealtWidth;
                 
                 participantPhysicalDealtView.css("width", physicalDealtWidth+"px");
                 participantMagicalDealtView.css("width", magicalDealtWidth+"px");
                 participantTrueDealtView.css("width", trueDealtWidth+"px");
             }
-
+			
             //상세 설명 탭 확장 애니메이션
             let totalItemWrapper = $('#game_history_item_wrapper_'+i);
             let innerItem = $('#game_history_item_'+i);
@@ -1011,7 +1016,7 @@ function loadSummonerMatchHistory(userInfo, info){
             const pulledByDealInfo = $('#game_history_item_desc_'+i+' '+'.participant-info .pulled-deal-container');
             const pushedByDealInfo = $('#game_history_item_desc_'+i+' '+'.participant-info .pushed-deal-container');
             const originalPulledTabLeft = $('.participant-detail-info-5').first();
-            console.log(originalPulledTabLeft.position().left);
+            
         
             dealAmountInfoTab.on("click", function(){
                 pulledByDealInfo.fadeOut(animationDelay);
