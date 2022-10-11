@@ -879,8 +879,7 @@ function loadSummonerMatchHistory(userInfo, info){
             for(let j=0;j<curTeam2Info.length;j++){
                 team2Container.append(curTeam2Info[j]);
             }
-			let maxDealtView = $(`#deal_damage_bar_0_0 .max-dealt-bar`);
-			console.log(maxDealtView.width());
+			
 
             //팀 유저 정보
             let maxDealtFromTeam = -1;
@@ -948,10 +947,10 @@ function loadSummonerMatchHistory(userInfo, info){
                 let participantPhysicalDealtView = $(`#deal_damage_bar_${i}_${j} .physical-dealt-bar`);
                 let participantMagicalDealtView = $(`#deal_damage_bar_${i}_${j} .magical-dealt-bar`);
                 let participantTrueDealtView = $(`#deal_damage_bar_${i}_${j} .true-dealt-bar`);
-				let maxDealtView = $(`#deal_damage_bar_${i}_${j} .max-dealt-bar`);
-				let maxDealtViewWidth = 302;
-				console.log(maxDealtViewWidth);
-
+				//let maxDealtView = $(`#deal_damage_bar_${i}_${j} .max-dealt-bar`);
+				let maxDealtView = $("#hidden_content_width");
+				let maxDealtViewWidth = maxDealtView.width();
+				
                 let physicalDealt = participantStat.physicalDamageDealtToChampions;
                 let magicalDealt = participantStat.magicDamageDealtToChampions;
                 let trueDealt = participantStat.trueDamageDealtToChampions;
@@ -998,6 +997,7 @@ function loadSummonerMatchHistory(userInfo, info){
                         totalItemWrapper.removeClass('folded');
                         totalItemWrapper.addClass('unfolded');
                     });
+					
                 }
                 else {
                     totalItemWrapper.animate({
@@ -1007,7 +1007,11 @@ function loadSummonerMatchHistory(userInfo, info){
                         totalItemWrapper.removeClass('unfolded');
                         totalItemWrapper.addClass('folded');
                     });
+					
                 }
+				let maxDealtView = $(".max-dealt-bar");
+				let maxDealtViewWidth = maxDealtView.width();
+				console.log(maxDealtViewWidth);
             });
 
             const detailMenuListTabContainer = $('#game_history_item_desc_'+i+' '+'.detail-menu-list-tab');
@@ -1249,7 +1253,7 @@ function getQueueTypeInfo(type){
             MapType = "summoners-rift";
             MapName = "중급 봇전(소환사의 협곡)";
             break;
-        case 900:
+        case 1900:
             MapLabel = "U.R.F";
             MapType = "summoners-rift";
             MapName = "우르프";
