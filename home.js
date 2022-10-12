@@ -21,7 +21,7 @@ let currentGameTimer = null;
 
 $( document ).ready(function() {
     $.ajax({
-        url: "credentials.json",
+        url: "credentials/credentials.json",
         type: 'GET',
         dataType: 'json',
         async: false,
