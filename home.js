@@ -122,6 +122,7 @@ $( document ).ready(function() {
     const searcherInput = $('#search_summoner_input');
     searcherInput.on("keydown", function(e){
         if(e.key == "Enter") {
+		clickedBtn();
             getSummonerInfo("name", searcherInput.val());
         }
     });
