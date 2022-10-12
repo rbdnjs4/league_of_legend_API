@@ -7,6 +7,7 @@ let spellData = undefined;
 let perkData = undefined;
 let detailPerkData = undefined;
 let itemImageData = undefined;
+let userInfo_next=undefined;
 
 let championKeyDict = {};
 let spellKeyDict = {};
@@ -18,10 +19,13 @@ let maxHistoryItemCall = DebugLevel?3:15;
 
 let currentGameTimer = null;
 
+let count_start = 0;
+let count_end = 19;
+
 
 $( document ).ready(function() {
     $.ajax({
-        url: "credentials/credentials.json",
+        url: "credentials.json",
         type: 'GET',
         dataType: 'json',
         async: false,
@@ -183,6 +187,7 @@ $( document ).ready(function() {
     const bodyContent = $('#body_content');
 
     animationDelay = 500;
+	animationDelay_DealInfo = 0;
     animationStyle = "easeOutQuint";
 
     const originHeight = 242;
@@ -294,6 +299,7 @@ function getSummonerInfo(method, data){
         },
         success: function(res){
             //Point
+			userInfo_next = res;
 			puuid=res.puuid;
             loadSummonerGeneralInfo(res);
             getSummonerLeagueInfoBySummonerID(res.id);
@@ -333,8 +339,8 @@ function getSummonerRecentGameHistoryBySummonerPuuid(userInfo){
         dataType: "json",
         data: {
             "api_key": key,
-            "start": 0,
-            "count": 19,
+            "start": count_start,
+            "count": count_end,
         },
 		
         success: function(res){
@@ -601,6 +607,7 @@ function loadSummonerMatchHistory(userInfo, info){
                 </div>
                 `
                 let timeGap = new Date() - res.info.gameStartTimestamp;
+				
                 let historyHTMLdocSegment = (`
                 <div class="game-history-item-wrapper ${queueTypeInfo.MapType} folded" id="game_history_item_wrapper_${i}">
                     <div class="game-history-item ${isWinType}-type" id="game_history_item_${i}">
@@ -801,6 +808,7 @@ function loadSummonerMatchHistory(userInfo, info){
             },
             error: function(req, stat, err){
                 console.log(err);
+				console.log("여기서 에러걸림");
 				alert(err);
                 if(err == "Too Many Requests") alert('요청이 너무 빠릅니다!');
             },
@@ -985,7 +993,7 @@ function loadSummonerMatchHistory(userInfo, info){
             rolledTab.css("z-index", (9900-i)+"");
         
             const animationStyle = 'easeOutQuint';
-            const animationDelay = 300;
+            const animationDelay = 500;
         
             innerItem.on("click", function(){
                 let isFolded = totalItemWrapper.hasClass('folded');
@@ -1023,8 +1031,8 @@ function loadSummonerMatchHistory(userInfo, info){
             
         
             dealAmountInfoTab.on("click", function(){
-                pulledByDealInfo.fadeOut(animationDelay);
-                pushedByDealInfo.fadeIn(animationDelay);
+                pulledByDealInfo.fadeOut(animationDelay_DealInfo);
+                pushedByDealInfo.fadeIn(animationDelay_DealInfo);
                 detailMenuListTabContainer.removeClass("focused");
                 detailMenuListTabContainer.addClass("unfocused");
                 $(this).removeClass("unfocused");
@@ -1032,8 +1040,8 @@ function loadSummonerMatchHistory(userInfo, info){
             });
         
             generalMatchInfoTab.on("click", function(){
-                pulledByDealInfo.fadeIn(animationDelay);
-                pushedByDealInfo.fadeOut(animationDelay);
+                pulledByDealInfo.fadeIn(animationDelay_DealInfo);
+                pushedByDealInfo.fadeOut(animationDelay_DealInfo);
                 detailMenuListTabContainer.removeClass("focused");
                 detailMenuListTabContainer.addClass("unfocused");
                 $(this).removeClass("unfocused");
@@ -1089,7 +1097,32 @@ function loadSummonerMatchHistory(userInfo, info){
             },
         });
     });
+	let nexthistoryHTMLdocSegment = (`
+		<div id="button_wrap">
+			<input type="button" value="<<" onclick="HistoryCountingMinus(); clickedBtn();">
+			<input type="button" value=">>" onclick="HistoryCountingPlus(); clickedBtn();">
+		</div>
+	`);
+	const nextButton = $('#next-game-list-button');
+	$('#button_wrap').remove();
+	nextButton.append(nexthistoryHTMLdocSegment);
 }
+
+function HistoryCountingMinus() {	
+	if(count_start==0) {
+		alert("마지막 페이지입니다.");
+	}
+	else {
+		count_start-=19;
+		getSummonerRecentGameHistoryBySummonerPuuid(userInfo_next);
+	}
+}
+
+function HistoryCountingPlus() {
+	count_start+=19;
+	getSummonerRecentGameHistoryBySummonerPuuid(userInfo_next);
+}
+
 
 function getAndLoadParticipantsLeagueInfoBySummonerID(span, id){
     $.ajax({
