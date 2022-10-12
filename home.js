@@ -187,8 +187,8 @@ $( document ).ready(function() {
     const bodyContent = $('#body_content');
 
     animationDelay = 100;
-    animationDelay_DealInfo = 0;
-    animationStyle = "easeOutQuint";
+	animationDelay_DealInfo = 0;
+    animationStyle = "easeOutQuad";
 
     const originHeight = 242;
 
@@ -276,7 +276,7 @@ function getSummonerInfo(method, data){
     whenFindNewSummoner();
     let AfterURL = "https://kr.api.riotgames.com/lol/summoner/v4/summoners/";
 	if(data=="") {
-		alert("소환사를 입력해주세요.");
+		swal("소환사를 입력해주세요.");
 		location.href(-1);
 	}
     switch(method){
@@ -309,8 +309,8 @@ function getSummonerInfo(method, data){
         },
         error: function(req, stat, err){
             console.log(err);
-            if(err == "Forbidden") alert("API_KEY 만료됨");
-            else alert("존재하지 않는 소환사입니다.");
+            if(err == "Forbidden") swal("API_KEY 만료됨");
+            else swal("존재하지 않는 소환사입니다.");
         },
     });
 }
@@ -367,7 +367,7 @@ function getSummonerLeagueInfoBySummonerID(id){
         },
         error: function(req, stat, err){
             console.log(err);
-            if(err == "Service Unavailable") alert('현재 API 서버 사용 불가능함');
+            if(err == "Service Unavailable") swal('현재 API 서버 사용 불가능함');
         },
     });
 }
@@ -574,7 +574,7 @@ function loadSummonerMatchHistory(userInfo, info){
 				console.log("success!!!!");
                 let userIndex = getUserIndexFromMatchInfo(userInfo, res);
                 if(userIndex === -1){
-                    alert("citical Error!");
+                    swal("citical Error!");
                     return;
                 }
                 const curUserInfo = res.info.participants[userIndex];
@@ -809,8 +809,8 @@ function loadSummonerMatchHistory(userInfo, info){
             error: function(req, stat, err){
                 console.log(err);
 				console.log("여기서 에러걸림");
-				alert(err);
-                if(err == "Too Many Requests") alert('요청이 너무 빠릅니다!');
+				swal(err);
+                if(err == "Too Many Requests") swal('요청이 너무 빠릅니다!');
             },
         });
 
@@ -1110,7 +1110,7 @@ function loadSummonerMatchHistory(userInfo, info){
 
 function HistoryCountingMinus() {	
 	if(count_start==0) {
-		alert("마지막 페이지입니다.");
+		swal("마지막 페이지입니다.");
 	}
 	else {
 		count_start-=19;
