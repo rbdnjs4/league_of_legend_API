@@ -186,8 +186,8 @@ $( document ).ready(function() {
 
     const bodyContent = $('#body_content');
 
-    animationDelay = 500;
-	animationDelay_DealInfo = 0;
+    animationDelay = 100;
+    animationDelay_DealInfo = 0;
     animationStyle = "easeOutQuint";
 
     const originHeight = 242;
