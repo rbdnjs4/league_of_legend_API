@@ -11,6 +11,7 @@
         <script src="lib/chart.js"></script>
         <script src="lib/jquery-ui.js"></script>
         <script src="home.js"></script>
+	<script src="loading.js"></script>
         <script src="lib/jquery.ajax-cross-origin.min.js"></script>
     </head>
     <body>
@@ -249,6 +250,7 @@
                     <div class="not-playing-now-msg-container" id="not_playing_now_container">
                         <span class="not-playing-title">해당 플레이어는<br>현재 게임 중이 아닙니다.</span>
                     </div>
+			<div class="current-game-content-wrapper" id="current_game_info_content_wrapper">
                     <div class="current-game-content-wrapper" id="current_game_info_content_wrapper">
                         <!-- <div class="current-game-content">
                             <span class="current-game-map-type">칼바람 나락</span>
@@ -274,6 +276,7 @@
                 </div>
             </div>
         </div>
+	    <div class="loader"></div>
 		<ins class="kakao_ad_area" style="display:none; z-index:9999; bottom:0; position:fixed; left:0;" 
 		 data-ad-unit    = "DAN-lY4LxdntlFJtgDBf" 
 		 data-ad-width   = "320" 
