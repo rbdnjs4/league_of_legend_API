@@ -32,7 +32,7 @@ $( document ).ready(function() {
         dataType: 'json',
         async: false,
         success: function(res){
-            console.log("credentials load complete!");;
+            //console.log("credentials load complete!");;
 
             key = res.riot_api_key;
             puuid = res.my_account_puuid;
@@ -67,7 +67,7 @@ $( document ).ready(function() {
                         let val = res[i];
                         detailPerkKeyDict[val.id] = val;
                     }
-					console.log(detailPerkKeyDict);
+					//console.log(detailPerkKeyDict);
                 }
             });
             let getRuneJsonRequest = $.ajax({
