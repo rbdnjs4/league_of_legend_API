@@ -1,12 +1,13 @@
-//최근 전적
+//현재 게임
 function loadCurremtMatchInfo(info){
+	//$('#not_playing_now_container').remove();
     let queueTypeInfo = getQueueTypeInfo(info.gameQueueConfigId);
     console.log(new Date().getTime() - info.gameStartTime);
 	$('#current_game_info_content_wrapper').css("display", "inline-block");
     $('#not_playing_now_container').css("display", "inline-block");
     $('#current_game_info_tab').css("box-shadow", "0 0 8px rgb(9, 255, 9)");
     $('#current_game_info_content_wrapper .current-game-map-type').text(queueTypeInfo.MapLabel);
-
+	
     const startTime = info.gameStartTime;
     const elapsedTimeText = $('#current_game_elapsed_time');
     currentGameTimer = setInterval(function(){
@@ -49,10 +50,10 @@ function loadCurremtMatchInfo(info){
                 <span class="username">${currentPlayerInfo.summonerName}</span>
             </div>
             <div class="current-season-rank-wrapper rank-position">
-                <span class="current-season-rank">GrandMaster 1</span>
+                <span class="current-season-rank">unknown</span>
             </div>
             <div class="previous-season-rank-wrapper rank-position">
-                <span class="previos-season-rank">Diamond 4</span>
+                <span class="previos-season-rank">unknown</span>
             </div>
         </div>`;
         segmentBundle.push(itemSegment);
@@ -92,6 +93,7 @@ function loadCurremtMatchInfo(info){
 	console.log("real success!");
 }
 
+//전적 검색
 function loadSummonerMatchHistory(userInfo, info){
     let matchList = info;
     const gameHistoryListContainer = $('#game_history_list_container');
