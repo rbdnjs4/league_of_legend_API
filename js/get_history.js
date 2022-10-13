@@ -90,7 +90,7 @@ function getSummonerLeagueInfoBySummonerID(id){
             "api_key": key,
         },
         success: function(res){
-            // console.log("Success to get Summoner's League Data");
+            //console.log("Success to get Summoner's League Data");
             loadSummonerLeagueInfo(res);
         },
         error: function(req, stat, err){
@@ -111,16 +111,20 @@ function getCurrentMatchBySummonerID(id){
         success: function(res){
             // 게임 중
             loadCurremtMatchInfo(res);
+			console.log("게임중입니다.")
         },
         error: function(req, stat, err){
-            if(err == "Not Found") {
-                $('#current_game_info_content_wrapper').css("display", "none");
-                $('#not_playing_now_container').css("display", "inline-block");
-                $('#current_game_info_tab').css("box-shadow", "none");
-				$('.not-playing-title').test("gadsfdsa")
-                console.log("게임 중이 아님");
-            }
-            else console.log(err);
+			
+			$('#current_game_info_content_wrapper').css("display", "none");
+            $('#not_playing_now_container').css("display", "inline-block");
+            $('#current_game_info_tab').css("box-shadow", "none");
+			$('.not-playing-title').test("gadsfdsa")
+				
+            console.log("게임 중이 아님");
+			
+            //if(err == "Not Found") 
+            
+            //else console.log(err);
         },
     });
 }
