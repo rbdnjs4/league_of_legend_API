@@ -27,7 +27,6 @@ $( document ).ready(function() {
 	
 	//메뉴 클릭 구간
 	searchBtn.on("click", function(){
-		alert(1);
 		const EraseMasteryList = $('.erase_mastery_list');
 		EraseMasteryList.remove();
         recentGameInfoContent.animate({
