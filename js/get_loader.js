@@ -476,7 +476,7 @@ function loadSummonerMatchHistory(userInfo, info){
                 participantPerk2ImageView.css("background-size", "80%");
 
                 //전적 아이템마다 같이한 사람들 정보 로드 - request가 많으므로 Product 검사 끝나면 주석 처리 뺄 것
-                getAndLoadParticipantsLeagueInfoBySummonerID(participantTierView, participantIdentityInfo.summonerId);
+                //getAndLoadParticipantsLeagueInfoBySummonerID(participantTierView, participantIdentityInfo.summonerId);
             
                 let participantItemList = [];
                 for(let k=0; k<=5; k++) {
