@@ -5,6 +5,8 @@ $( document ).ready(function() {
     const currentGameInfo = $('#current_game_info_container');
     const mainInfoContainers = $('.main-info-tab');
 	const searchBtn = $('#btn1');
+	const searcherInput = $('#search_summoner_input');
+	
     //Selector Tab
     const recentGameHistoryInfoTab = $('#recent_game_history_info_tab');
     const currentGameInfoTab = $('#current_game_info_tab');
@@ -41,6 +43,25 @@ $( document ).ready(function() {
 
         InfoTabBundle.css("background-color", "#444");
         recentGameHistoryInfoTab.css("background-color", "#222");
+    });
+	
+    searcherInput.on("keydown", function(e){
+        if(e.key == "Enter") {
+			const EraseMasteryList = $('.erase_mastery_list');
+			EraseMasteryList.remove();
+			recentGameInfoContent.animate({
+				left: 0,
+			}, animationDelay, animationStyle);
+			masteryInfo.animate({
+				left: '100%',
+			}, animationDelay, animationStyle);
+			currentGameInfo.animate({
+				left: '200%',
+			}, animationDelay, animationStyle);
+
+			InfoTabBundle.css("background-color", "#444");
+			recentGameHistoryInfoTab.css("background-color", "#222");
+        }
     });
 	
     recentGameHistoryInfoTab.on("click", function(){
