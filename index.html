@@ -3,25 +3,29 @@
     <head>
         <title>롤 전적 검색</title>
         <meta name="viewport" content="width=device-width">
-        <link rel="stylesheet" href="reset.css">
-        <link rel="stylesheet" href="style.css">
-        <link rel="stylesheet" href="clear.css">
+        <link rel="stylesheet" href="css/reset.css">
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/clear.css">
         <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,400,700&display=swap" rel="stylesheet">
         <script src="lib/jquery-3.4.1.js"></script>
         <script src="lib/chart.js"></script>
         <script src="lib/jquery-ui.js"></script>
-        <script src="home.js"></script>
-		<script src="loading.js"></script>
         <script src="lib/jquery.ajax-cross-origin.min.js"></script>
-	    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+        <script src="home.js"></script>
+		<script src="js/loading.js"></script>
+		<script src="js/SelectTab.js"></script>
+		<script src="js/user_function.js"></script>
+		<script src="js/get_history.js"></script>
+		<script src="js/get_loader.js"></script>
+		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     </head>
     <body>
-		<div id="hidden_content_width" style="width:39.20%;"></div>
+		<div id="hidden_content_width" style="width:39.40%;"></div>
         <div class="body-content" id="body_content">
             <div class="searcher">
-				<button  id="btn0"><img src="img/dong.png" alt="" style="width:15px;height:15px;" script="clickedBtn();"></button>
+				<button  id="btn0"><img src="img/dong.png" alt="" style="width:15px;height:15px;" onclick="clickedBtn();"></button>
                 <input id="search_summoner_input" placeholder="소환사명을 입력하세요..">
-				<button  id="btn1"><img src="img/dod.png" alt="" style="width:15px;height:15px;" script="clickedBtn();"></button>
+				<button  id="btn1"><img src="img/dod.png" alt="" style="width:15px;height:15px;" onclick="clickedBtn();"></button>
             </div>
             <div class="user-repr-info">
                 <div class="profile-icon-wrapper">
