@@ -93,7 +93,6 @@ function loadCurremtMatchInfo(info){
 	console.log("real success!");
 }
 
-//전적 검색
 function loadSummonerMatchHistory(userInfo, info){
     let matchList = info;
     const gameHistoryListContainer = $('#game_history_list_container');
