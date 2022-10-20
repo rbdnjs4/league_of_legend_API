@@ -23,11 +23,11 @@ let currentGameTimer = null;
 
 let count_start = 0;
 let count_end = 19;
-
+let count_print = 1;
 
 $( document ).ready(function() {
     $.ajax({
-        url: "credentials.json",
+        url: "credential/credentials.json",
         type: 'GET',
         dataType: 'json',
         async: false,

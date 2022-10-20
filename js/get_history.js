@@ -26,6 +26,7 @@ function getSummonerInfo(method, data){
         success: function(res){
             //Point
 			count_start=0;
+			count_print=1;
 			userInfo_next = res;
 			userInfo_Tab = res;
 			puuid=res.puuid;

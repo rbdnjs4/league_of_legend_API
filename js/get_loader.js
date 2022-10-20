@@ -648,6 +648,7 @@ function loadSummonerMatchHistory(userInfo, info){
 			<input type="button" value=">>" onclick="HistoryCountingPlus(); clickedBtn();">
 			<br>
 			<br>
+			<p style="font-color:white;">${count_print}</p>
 			<br>
 			<br>
 			<br>
@@ -666,12 +667,14 @@ function HistoryCountingMinus() {
 	}
 	else {
 		count_start-=19;
+		count_print--;
 		getSummonerRecentGameHistoryBySummonerPuuid(userInfo_next);
 	}
 }
 
 function HistoryCountingPlus() {
 	count_start+=19;
+	count_print++;
 	getSummonerRecentGameHistoryBySummonerPuuid(userInfo_next);
 }
 

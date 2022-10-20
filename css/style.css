@@ -1469,6 +1469,12 @@ body{
 
 }
 
+#btn0, #btn1{
+	background-color:#E8D9FF;
+	border:0;
+	outline:0;
+}
+
 .loader {
   border: 16px solid #f3f3f3; /* Light grey */
   border-top: 16px solid black; /* Blue */
