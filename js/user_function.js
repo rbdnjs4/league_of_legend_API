@@ -162,6 +162,8 @@ function getSpellInfoFromKey(keyIn){
     return spellData[keyword];
 }
 
+
+//챔피언 ID number -> name 리턴
 function getChampionInfoFromKey(keyIn){
     let keyword = championKeyDict[keyIn];
     if(keyword == undefined) keyword = "Unknown";

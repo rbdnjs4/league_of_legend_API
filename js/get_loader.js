@@ -1,4 +1,7 @@
 //현재 게임
+let TIME_COUNT=0;
+let SET_TIMER = undefined;
+
 function loadCurremtMatchInfo(info){
 	//$('#not_playing_now_container').remove();
     let queueTypeInfo = getQueueTypeInfo(info.gameQueueConfigId);
@@ -74,6 +77,7 @@ function loadCurremtMatchInfo(info){
         let currentPlayerPerk2Div = $('#current_player_perk_img2_'+i);
 
         let curChampionInfo = getChampionInfoFromKey(currentPlayerInfo.championId);
+		
         let champion_img_url = getLatestDataDragonURL()+"/img/champion/"+curChampionInfo.id+".png";
         let spell1_url_def = getLatestDataDragonURL()+"/img/spell/"+getSpellInfoFromKey(currentPlayerInfo.spell1Id).id+".png";
         let spell2_url_def = getLatestDataDragonURL()+"/img/spell/"+getSpellInfoFromKey(currentPlayerInfo.spell2Id).id+".png";
@@ -474,10 +478,16 @@ function loadSummonerMatchHistory(userInfo, info){
                 participantPerk1ImageView.css("background-image", `url(${perk1ImageURL})`);
                 participantPerk2ImageView.css("background-image", `url(${perk2ImageURL})`);
                 participantPerk2ImageView.css("background-size", "80%");
-
+				
+				TIME_COUNT+=500;
+				
                 //전적 아이템마다 같이한 사람들 정보 로드 - request가 많으므로 Product 검사 끝나면 주석 처리 뺄 것
-                //getAndLoadParticipantsLeagueInfoBySummonerID(participantTierView, participantIdentityInfo.summonerId);
-            
+				/*SET_TIMER = setTimeout(async () => {
+                	getAndLoadParticipantsLeagueInfoBySummonerID(participantTierView, participantIdentityInfo.summonerId);
+					
+					console.log(j);
+				}, TIME_COUNT);*/
+				
                 let participantItemList = [];
                 for(let k=0; k<=5; k++) {
                     let pitemCode = participantInfo['item'+k];
@@ -666,6 +676,10 @@ function HistoryCountingMinus() {
 		swal("마지막 페이지입니다.");
 	}
 	else {
+		for(let i=0;i<=SET_TIMER; i++) {
+			clearTimeout(i);
+		}
+		TIME_COUNT=0;
 		count_start-=19;
 		count_print--;
 		getSummonerRecentGameHistoryBySummonerPuuid(userInfo_next);
@@ -673,6 +687,10 @@ function HistoryCountingMinus() {
 }
 
 function HistoryCountingPlus() {
+	for(let i=0;i<=SET_TIMER; i++) {
+			clearTimeout(i);
+	}
+	TIME_COUNT=0;
 	count_start+=19;
 	count_print++;
 	getSummonerRecentGameHistoryBySummonerPuuid(userInfo_next);
@@ -694,12 +712,14 @@ function loadSummonerMasteryList(masteryEntries){
         let entryLabel = "normal-mastery";
         let entryIndex = i+1;
         if(i<3) entryLabel = "highest"+entryIndex+"-mastery";
+		
         let championInfo = getChampionInfoFromKey(masteryEntry.championId);
+		console.log(masteryEntry.championId);
         if(championInfo == undefined) continue;
         let championImgPath = getLatestDataDragonURL()+"/img/champion/"+championInfo.id+".png";
         let masteryAmount = masteryEntry.championPoints;
         let masteryLevel = masteryEntry.championLevel;
-
+	
         let masterySegment = `
 		<div class="erase_mastery_list"> 
 			<div class="champion-mastery-item ${entryLabel}" id="champion_mastery_item_${i}">
@@ -793,7 +813,7 @@ function getAndLoadParticipantsLeagueInfoBySummonerID(span, id){
                     return;
                 }
             }
-            $.ajax({
+            /*$.ajax({
                 url: "https://kr.api.riotgames.com/lol/summoner/v4/summoners/"+id,
                 type: "GET",
                 aync: false,
@@ -813,7 +833,7 @@ function getAndLoadParticipantsLeagueInfoBySummonerID(span, id){
                         else span.text('Error-2');
                     }
                 },
-            });
+            });*/
         },
         error: function(req, stat, err){
             
@@ -825,6 +845,7 @@ function getAndLoadParticipantsLeagueInfoBySummonerID(span, id){
 }
 
 function loadSummonerGeneralInfo(info){
+	
     $('#current_summoner_profile_icon_img').attr("src", getLatestDataDragonURL()+"/img/profileicon/"+info.profileIconId+".png");
     $('#current_summoner_name').text(info.name);
     $('#current_summoner_level').text(info.summonerLevel);
@@ -855,3 +876,18 @@ function loadSummonerLeagueInfo(info){
         }
     }
 }
+
+function loadRotationChampion(info) {
+	console.log(info);
+	console.log(info.freeChampionIds);
+	console.log(info.freeChampionIds[0]);
+	for(let i=0;i<info.freeChampionIds.length;i++) {
+		let rotation_champion_img_box = `<img class="img_rotation_champ" id="champion${i}">`
+		$('#rotation_champ').append(rotation_champion_img_box);
+		
+		let rotation_champion_id = getChampionInfoFromKey(info.freeChampionIds[i]);
+		$('#champion'+i).attr("src", getLatestDataDragonURL()+"/img/champion/"+rotation_champion_id.id+".png");
+	}
+	console.log(championData);
+}
+

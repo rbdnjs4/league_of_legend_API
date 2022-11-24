@@ -9,6 +9,7 @@ let detailPerkData = undefined;
 let itemImageData = undefined;
 let userInfo_next=undefined;
 let userInfo_Tab=undefined;
+let championKeyDictJson = {};
 
 
 let championKeyDict = {};
@@ -24,8 +25,10 @@ let currentGameTimer = null;
 let count_start = 0;
 let count_end = 19;
 let count_print = 1;
+let con = 0;
 
 $( document ).ready(function() {
+
     $.ajax({
         url: "credential/credentials.json",
         type: 'GET',
@@ -41,7 +44,14 @@ $( document ).ready(function() {
             console.log(err);
         },
     });
-	
+	$.ajax({
+		url: "https://ddragon.leagueoflegends.com/cdn/10.6.1/data/ko_KR/champion/Alistar.json",
+		type: "GET",
+		dataType: "json",
+		success: function(res) {
+			console.log(res.data.Aatrox.spells[0].id);
+		}
+	})
     let getLatestDataDragonVersionRequest = $.ajax({
         url: "https://ddragon.leagueoflegends.com/api/versions.json",
         type: "GET",
@@ -99,12 +109,18 @@ $( document ).ready(function() {
                 dataType: "json",
                 success: function(res){
                     championData = res.data;
+					console.log(championKeyDictJson);
                     for(let key in championData){
                         let value = championData[key];
                         championKeyDict[value.key] = value.id;
+						championKeyDictJson[con] = key;
+						con++;
                     }
+					console.log(championKeyDictJson);
                 }
             });
+			
+			
 
             loadInitialDataRequestCallback.push(getItemJsonRequest);
             loadInitialDataRequestCallback.push(getPerkJsonRequest);
@@ -112,13 +128,30 @@ $( document ).ready(function() {
             loadInitialDataRequestCallback.push(getSummonerSpellJsonRequest);
             loadInitialDataRequestCallback.push(getChampionJsonRequest);
             loadInitialDataRequestCallback.push(getLatestDataDragonVersionRequest);
-
+			
             //Load
             $.when.apply(null, loadInitialDataRequestCallback).done(function(){
                 getSummonerInfo("puuid", puuid);
+				$.ajax({
+					url: "https://kr.api.riotgames.com/lol/platform/v3/champion-rotations",
+					type: "GET",
+					dataType: "json",
+					data: {
+						"api_key": key
+					},
+					async: false,
+					success: function(res) {
+						loadRotationChampion(res);
+					},
+					error: function(req, stat, err) {
+						console.log(err);
+					},
+				});
             });
         },
     });
+	
+	
 
     const searcherInput = $('#search_summoner_input');
     searcherInput.on("keydown", function(e){
@@ -212,4 +245,6 @@ $( document ).ready(function() {
     //Point
     //currentGameInfoTab.click();
     // dealAmountInfoTab.click();
+	
+	
 });

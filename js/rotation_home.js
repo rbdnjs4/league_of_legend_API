@@ -10,7 +10,9 @@ let itemImageData = undefined;
 let userInfo_next=undefined;
 let userInfo_Tab=undefined;
 
-
+let test = [];
+let championKeyDictEngName = {};
+let championKeyDictKorName = {};
 let championKeyDict = {};
 let spellKeyDict = {};
 let perkKeyDict = {};
@@ -24,6 +26,7 @@ let currentGameTimer = null;
 let count_start = 0;
 let count_end = 19;
 let count_print = 1;
+let con = 0;
 
 $( document ).ready(function() {
 
@@ -99,10 +102,15 @@ $( document ).ready(function() {
                 type: "GET",
                 dataType: "json",
                 success: function(res){
+					console.log(res);
                     championData = res.data;
                     for(let key in championData){
                         let value = championData[key];
-                        championKeyDict[value.key] = value.id;
+                        championKeyDict[value.key] = value.id;	//0~ id값으로 정렬된 데이터		
+						championKeyDictEngName[con] = value.id; //0~ 이름 순으로 정렬된 데이터
+						championKeyDictKorName[con] = value.name;
+						if(con>80) test[con] = value.name;
+						con++;
                     }
                 }
             });

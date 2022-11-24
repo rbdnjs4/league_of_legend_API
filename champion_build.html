@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>롤 전적 검색</title>
+        <meta name="viewport" content="width=device-width">
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/clear.css">
+		<link rel="stylesheet" href="css/rotation.css">
+		<link rel="stylesheet" href="css/tooltip.css">
+		<link rel="stylesheet" href="css/build.css">
+        <link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR:100,400,700&display=swap" rel="stylesheet">
+        <script src="lib/jquery-3.4.1.js"></script>
+        <script src="lib/chart.js"></script>
+        <script src="lib/jquery-ui.js"></script>
+        <script src="lib/jquery.ajax-cross-origin.min.js"></script>
+        <script src="js/rotation_home.js"></script>
+		<script src="js/loading.js"></script>
+		<script src="js/user_function.js"></script>
+		<script src="js/loadChampionBuild.js"></script>
+		
+		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    </head>
+    <body>
+		<div id="hidden_content_width" style="width:39.40%;"></div>
+        <div class="body-content" id="body_content">
+			<div class="searcher">
+				<div class="case">
+					<input id="search_summoner_input" class="search_input" placeholder="챔피언을 검색합니다." onKeyup="check_key();">
+					<div class="suggestions suggestions_pannel">
+        			</div>
+    			</div>
+            </div>
+			<div class="rotation_champd" id=rotation_champd>
+				<div class="rotation_champ_pack">
+					<div class="champion_table">
+					</div>
+				</div>
+				
+				
+			</div>
+        </div>
+		<div class="loader"></div>
+		<ins class="kakao_ad_area" style="display:none; z-index:99999; bottom:0; position:fixed; left:0;" 
+		 data-ad-unit    = "DAN-lY4LxdntlFJtgDBf" 
+		 data-ad-width   = "320" 
+		 data-ad-height  = "50"></ins> 
+		<script type="text/javascript" src="//t1.daumcdn.net/kas/static/ba.min.js" async></script>
+    </body>
+	<script src="js/search_champion.js"></script>
+</html>
